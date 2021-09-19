@@ -5,12 +5,14 @@ let result = document.querySelector('.result')
 
 btn.addEventListener('click', async (e) => {
   let produtos;
+  let html = ''
+  result.innerHTML = ''
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${input.value}`)
     .then(res => res.json())
     .then(prods => {
       produtos = prods.results
       produtos.map(prod => {
-        let html = `
+        html = `
           <div class="produto">
             <div class="img">
               <img src="${prod.thumbnail}" />
@@ -24,7 +26,7 @@ btn.addEventListener('click', async (e) => {
           </div>
         `
         result.innerHTML += html
-        console.log(prod);
+        input.value = ''
       })
     })
 })
